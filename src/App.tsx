@@ -9,6 +9,14 @@ import Payments from './components/Content/Payments';
 import { trendsData } from './data/trends';
 import { DataProvider } from './context/DataContext';
 import ClientsList from './components/Content/ClientsList';
+import ClientReviews from './components/Content/ClientReviews';
+import InventoryProducts from './components/Content/InventoryProducts';
+import InventoryOrders from './components/Content/InventoryOrders';
+import Shop from './components/Content/Shop';
+import Reports from './components/Content/Reports';
+import Tender from './components/Content/Tender';
+import Settings from './components/Content/Settings';
+import KnowledgeBase from './components/Content/KnowledgeBase';
 
 const App: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -73,14 +81,14 @@ const App: React.FC = () => {
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/payments" element={<Payments />} />
             <Route path="/clients/list" element={<ClientsList />} />
-            <Route path="/clients/reviews" element={<div>Client Reviews</div>} />
-            <Route path="/inventory/products" element={<div>Inventory Products</div>} />
-            <Route path="/inventory/orders" element={<div>Inventory Orders</div>} />
-            <Route path="/shop" element={<div>Shop</div>} />
-            <Route path="/reports" element={<div>Reports</div>} />
-            <Route path="/tender" element={<div>Tender</div>} />
-            <Route path="/settings" element={<div>Settings</div>} />
-            <Route path="/knowledge-base" element={<div>Knowledge Base</div>} />
+            <Route path="/clients/reviews" element={<ClientReviews />} />
+            <Route path="/inventory/products" element={<InventoryProducts />} />
+            <Route path="/inventory/orders" element={<InventoryOrders />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/tender" element={<Tender />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/knowledge-base" element={<KnowledgeBase />} />
           </Routes>
         </div>
       </div>
