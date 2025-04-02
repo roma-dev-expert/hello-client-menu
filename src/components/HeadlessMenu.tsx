@@ -6,25 +6,26 @@ export const HeadlessMenu: React.FC<HeadlessMenuProps> = ({ items, onSelect, ren
   const [openItem, setOpenItem] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [selectedSubItem, setSelectedSubItem] = useState<string | null>(null);
-
+  
   const handleClick = (item: MenuItem) => {
     setOpenItem(openItem === item.label ? null : item.label);
     setSelectedItem(item.label);
+  
     if (item.subItems && item.subItems.length > 0) {
-      setSelectedSubItem(item.subItems[0].label);
-      setSelectedItem(null);
-      onSelect?.(item.subItems[0].label);
+      const firstSubItem = item.subItems[0];
+      setSelectedSubItem(firstSubItem.label);
+      onSelect?.(firstSubItem.label);
     } else {
       setSelectedSubItem(null);
       onSelect?.(item.label);
     }
   };
-
+  
   const handleSubItemClick = (subItem: MenuItem) => {
     setSelectedSubItem(subItem.label);
-    setSelectedItem(null);
     onSelect?.(subItem.label);
   };
+  
 
   return (
     <div>

@@ -19,7 +19,7 @@ export const menuItems: MenuItem[] = [
   {
     label: 'Clients',
     icon: PeopleIcon,
-    path: '/clients',
+    path: '/clients/list',
     subItems: [
       { label: 'List', path: '/clients/list' },
       { label: 'Reviews', path: '/clients/reviews' },
@@ -28,7 +28,7 @@ export const menuItems: MenuItem[] = [
   {
     label: 'Inventory',
     icon: InventoryIcon,
-    path: '/inventory',
+    path: '/inventory/products',
     subItems: [
       { label: 'Products', path: '/inventory/products' },
       { label: 'Orders', path: '/inventory/orders' },
