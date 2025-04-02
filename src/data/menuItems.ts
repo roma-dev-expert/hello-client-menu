@@ -9,6 +9,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import GavelIcon from "@mui/icons-material/Gavel";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { MenuItem } from '../types/menu';
 
 export const menuItems: MenuItem[] = [
@@ -21,8 +22,8 @@ export const menuItems: MenuItem[] = [
     icon: PeopleIcon,
     path: '/clients/list',
     subItems: [
-      { label: 'List', path: '/clients/list' },
-      { label: 'Reviews', path: '/clients/reviews' },
+      { label: 'List', icon: ChevronRightIcon, path: '/clients/list' },
+      { label: 'Reviews', icon: ChevronRightIcon, path: '/clients/reviews' },
     ],
   },
   {
@@ -30,8 +31,8 @@ export const menuItems: MenuItem[] = [
     icon: InventoryIcon,
     path: '/inventory/products',
     subItems: [
-      { label: 'Products', path: '/inventory/products' },
-      { label: 'Orders', path: '/inventory/orders' },
+      { label: 'Products', icon: ChevronRightIcon, path: '/inventory/products' },
+      { label: 'Orders', icon: ChevronRightIcon, path: '/inventory/orders' },
     ],
   },
   { label: 'Shop', icon: StoreIcon, path: '/shop' },

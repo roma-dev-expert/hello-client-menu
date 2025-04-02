@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid'; // Установка пакета uuid: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 import { ShopItem } from '../../types/types';
 
 const Shop: React.FC = () => {
@@ -45,7 +45,6 @@ const Shop: React.FC = () => {
     <div className="p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Shop Inventory</h1>
 
-      {/* Поиск */}
       <input
         type="text"
         placeholder="Search by name..."
@@ -54,7 +53,6 @@ const Shop: React.FC = () => {
         className="w-full mb-4 p-2 border border-gray-300 rounded"
       />
 
-      {/* Форма добавления товара */}
       <div className="mb-4">
         <input
           type="text"
@@ -92,7 +90,6 @@ const Shop: React.FC = () => {
         </button>
       </div>
 
-      {/* Список товаров */}
       <ul className="space-y-4">
         {filteredItems.map((item) => (
           <li

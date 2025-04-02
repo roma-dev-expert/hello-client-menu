@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { HeadlessMenu } from './components/HeadlessMenu';
 import { menuItems } from './data/menuItems';
 import Trends from './components/Content/Trends';
@@ -21,51 +21,43 @@ import KnowledgeBase from './components/Content/KnowledgeBase';
 const App: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
-  const renderLink = (
-    label: string,
-    isSelected: boolean,
-    onClick: () => void,
-    isSubItem: boolean = false,
-    path: string = '',
-    icon?: React.ElementType
-  ) => {
-    const baseClasses = `w-full text-left px-4 rounded-lg transition font-medium ${
-      isSelected ? 'bg-blue-100 text-sky-700' : 'hover:bg-gray-200'
-    }`;
-    const subItemClasses = isSubItem
-      ? 'py-2 before:content-["•"] before:mr-2'
-      : 'py-3 flex items-center';
-  
+  const renderItem = ({
+    item,
+    isSelected,
+    onClick,
+    isCollapsed,
+  }: {
+    item: any;
+    isSelected: boolean;
+    onClick: () => void;
+    isCollapsed: boolean;
+  }) => {
     return (
       <Link
-        to={path}
+        to={item.path}
         onClick={onClick}
-        className={`${baseClasses} ${subItemClasses}`}
+        className={`w-full text-left my-1 px-4 py-2 rounded-lg cursor-pointer flex gap-2 ${
+          isSelected ? 'bg-blue-100 text-sky-700' : 'hover:bg-gray-200'
+        } ${isCollapsed && 'justify-center'}`
+      }
       >
-        {icon && <span className="mr-4">{React.createElement(icon)}</span>}
-        {label}
+        {item.icon && <span>{React.createElement(item.icon)}</span>}
+        {!isCollapsed && <span className='ml-4'>{item.label}</span>}
       </Link>
     );
-  };  
+  };
 
   return (
     <Router>
       <div className="flex h-screen">
-        <div className="bg-gray-100 w-1/4 p-4 rounded-lg shadow-lg">
           <HeadlessMenu
             items={menuItems}
-            onSelect={(item) => {
-              console.log('Selected:', item);
-              setSelectedItem(item);
+            onSelect={(itemLabel) => {
+              console.log('Selected:', itemLabel);
+              setSelectedItem(itemLabel);
             }}
-            renderItem={({ item, isOpen, isSelected, onClick }) =>
-              renderLink(item.label, isSelected, onClick, false, item.path, item.icon)
-            }
-            renderSubItem={({ subItem, isSelected, onClick }) =>
-              renderLink(subItem.label, isSelected, onClick, true, subItem.path)
-            }
+            renderItem={renderItem}
           />
-        </div>
 
         <div className="flex-1 bg-gray-50 p-6 ml-4 rounded-lg shadow-md">
           <Routes>

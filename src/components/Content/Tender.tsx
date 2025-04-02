@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid'; // Установка пакета uuid: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 import { Tender as TenderType } from '../../types/types';
 
 const Tender: React.FC = () => {
@@ -68,7 +68,6 @@ const Tender: React.FC = () => {
     <div className="p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Tender Management</h1>
 
-      {/* Фильтр */}
       <div className="mb-4">
         <select
           value={filterStatus}
@@ -82,7 +81,6 @@ const Tender: React.FC = () => {
         </select>
       </div>
 
-      {/* Форма добавления тендера */}
       <div className="mb-4">
         <input
           type="text"
@@ -129,7 +127,6 @@ const Tender: React.FC = () => {
         </button>
       </div>
 
-      {/* Список тендеров */}
       <ul className="space-y-4">
         {filteredTenders.map((tender) => (
           <li

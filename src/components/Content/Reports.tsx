@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid'; // Установка пакета uuid: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 import { Report } from '../../types/types';
 
 const Reports: React.FC = () => {
@@ -61,7 +61,6 @@ const Reports: React.FC = () => {
     <div className="p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Reports</h1>
 
-      {/* Фильтр */}
       <input
         type="text"
         placeholder="Search by title..."
@@ -70,7 +69,6 @@ const Reports: React.FC = () => {
         className="w-full mb-4 p-2 border border-gray-300 rounded"
       />
 
-      {/* Форма добавления нового отчёта */}
       <div className="mb-4">
         <input
           type="text"
@@ -100,7 +98,6 @@ const Reports: React.FC = () => {
         </button>
       </div>
 
-      {/* Список отчётов */}
       <ul className="space-y-4">
         {filteredReports.map((report) => (
           <li

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid'; // Установка пакета uuid: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 import { Review } from '../../types/types';
 
 const ClientReviews: React.FC = () => {
@@ -51,8 +51,6 @@ const ClientReviews: React.FC = () => {
   return (
     <div className="p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Client Reviews</h1>
-
-      {/* Форма добавления нового отзыва */}
       <div className="mb-4">
         <input
           type="text"
@@ -85,8 +83,6 @@ const ClientReviews: React.FC = () => {
           Add Review
         </button>
       </div>
-
-      {/* Список отзывов */}
       <ul className="space-y-4">
         {reviews.map((review) => (
           <li

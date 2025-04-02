@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid'; // Установка пакета uuid: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 import { Order } from '../../types/types';
 
 const InventoryOrders: React.FC = () => {
@@ -56,7 +56,6 @@ const InventoryOrders: React.FC = () => {
         </select>
       </div>
 
-      {/* Форма добавления нового заказа */}
       <div className="mb-4">
         <input
           type="text"
@@ -89,7 +88,6 @@ const InventoryOrders: React.FC = () => {
         </button>
       </div>
 
-      {/* Список заказов */}
       <ul className="space-y-4">
         {filteredOrders.map((order) => (
           <li

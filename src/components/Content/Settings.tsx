@@ -24,7 +24,6 @@ const Settings: React.FC = () => {
     <div className="p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Settings</h1>
 
-      {/* Выбор темы */}
       <div className="mb-4">
         <h2 className="text-lg font-medium">Theme</h2>
         <div className="flex gap-4 mt-2">
@@ -43,7 +42,6 @@ const Settings: React.FC = () => {
         </div>
       </div>
 
-      {/* Выбор языка */}
       <div className="mb-4">
         <h2 className="text-lg font-medium">Language</h2>
         <div className="flex gap-4 mt-2">
@@ -66,7 +64,6 @@ const Settings: React.FC = () => {
         </div>
       </div>
 
-      {/* Управление уведомлениями */}
       <div className="mb-4">
         <h2 className="text-lg font-medium">Notifications</h2>
         <div className="mt-2">

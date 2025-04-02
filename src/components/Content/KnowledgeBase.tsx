@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { KnowledgeBaseEntry } from '../../types/types';
-import { v4 as uuidv4 } from 'uuid'; // Установка пакета uuid: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 
 const KnowledgeBase: React.FC = () => {
   const [entries, setEntries] = useState<KnowledgeBaseEntry[]>([
@@ -37,7 +37,6 @@ const KnowledgeBase: React.FC = () => {
     <div className="p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Knowledge Base</h1>
 
-      {/* Поиск и фильтр */}
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         <input
           type="text"
@@ -57,7 +56,6 @@ const KnowledgeBase: React.FC = () => {
         </select>
       </div>
 
-      {/* Список статей */}
       <ul className="space-y-4">
         {filteredEntries.map((entry) => (
           <li

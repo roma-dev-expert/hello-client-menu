@@ -24,9 +24,9 @@ export interface Task {
   export interface Review {
     id: string;
     clientName: string;
-    rating: number; // Рейтинг (1–5)
-    comment: string; // Текст комментария
-    date: string; // Дата отзыва
+    rating: number;
+    comment: string;
+    date: string;
   }
   
   export interface Product {
@@ -41,8 +41,8 @@ export interface Task {
     id: string;
     productName: string;
     quantity: number;
-    orderDate: string; // Дата заказа
-    status: 'Pending' | 'Completed' | 'Cancelled'; // Статус заказа
+    orderDate: string;
+    status: 'Pending' | 'Completed' | 'Cancelled';
   }
   
   export interface ShopItem {
@@ -50,33 +50,33 @@ export interface Task {
     name: string;
     category: string;
     price: number;
-    stock: number; // Количество в наличии
+    stock: number;
   }
   export interface Report {
     id: string;
     title: string;
-    date: string; // Дата создания отчёта
-    category: string; // Категория отчёта
-    description: string; // Краткое описание
+    date: string;
+    category: string;
+    description: string;
   }
   export interface Tender {
     id: string;
     title: string;
     company: string;
-    deadline: string; // Дата окончания подачи заявок
-    status: 'Open' | 'Closed' | 'Awarded'; // Статус тендера
-    budget: number; // Бюджет тендера
+    deadline: string;
+    status: 'Open' | 'Closed' | 'Awarded';
+    budget: number;
   }
   
   export interface Settings {
-    theme: 'Light' | 'Dark'; // Выбор темы
-    language: 'English' | 'Russian'; // Выбор языка
-    notificationsEnabled: boolean; // Включение уведомлений
+    theme: 'Light' | 'Dark';
+    language: 'English' | 'Russian';
+    notificationsEnabled: boolean; 
   }
   export interface KnowledgeBaseEntry {
     id: string;
     title: string;
     category: string;
-    content: string; // Full content or description of the entry
+    content: string;
   }
   
