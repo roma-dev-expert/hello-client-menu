@@ -1,37 +1,32 @@
 import React, { useState } from 'react';
 import { MenuItem, HeadlessMenuProps } from '../types/menu';
 import '../styles/globals.css';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import MenuIcon from '@mui/icons-material/Menu';
-
 
 export const HeadlessMenu: React.FC<HeadlessMenuProps> = ({
   items,
-  onSelect,
-  renderItem,
+  renderMenuItem,
+  renderToggleMenu,
+  renderTooltip,
+  className,
 }) => {
   const [openItem, setOpenItem] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [selectedSubItem, setSelectedSubItem] = useState<string | null>(null);
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const handleClick = (item: MenuItem) => {
     setOpenItem(openItem === item.label ? null : item.label);
     setSelectedItem(item.label);
-
     if (item.subItems && item.subItems.length > 0) {
-      const firstSubItem = item.subItems[0];
-      setSelectedSubItem(firstSubItem.label);
-      onSelect?.(firstSubItem.label);
+      setSelectedSubItem(item.subItems[0].label);
     } else {
       setSelectedSubItem(null);
-      onSelect?.(item.label);
     }
   };
 
   const handleSubItemClick = (subItem: MenuItem) => {
     setSelectedSubItem(subItem.label);
-    onSelect?.(subItem.label);
   };
 
   const toggleMenu = () => {
@@ -40,47 +35,56 @@ export const HeadlessMenu: React.FC<HeadlessMenuProps> = ({
 
   return (
     <div
-      className={`flex flex-col ${
-        isCollapsed ? 'w-min' : 'w-auto'
-      } bg-gray-100 p-4 rounded-lg shadow-lg`}
+      className={className}
+      onMouseLeave={() => setHoveredItem(null)}
     >
-      <div className={`flex-1 ${isCollapsed && 'justify-items-center'}`}>
-        {items.map((item) => (
-          <div key={item.label} className="flex flex-col">
-            {renderItem({
-              item,
-              isOpen: openItem === item.label,
-              isSelected: selectedItem === item.label,
-              onClick: () => handleClick(item),
-              isCollapsed,
-            })}
-            {item.subItems && openItem === item.label && (
-              <div
-                className={`${isCollapsed ? 'hidden' : 'ml-4 flex flex-col'}`}
-              >
-                {item.subItems.map((subItem) =>
-                  renderItem({
-                    item: subItem,
-                    isOpen: openItem === item.label,
-                    isSelected: selectedSubItem === subItem.label,
-                    onClick: () => handleSubItemClick(subItem),
-                    isCollapsed,
-                  })
-                )}
-              </div>
-            )}
-          </div>
-        ))}
-        <button
-          onClick={toggleMenu}
-          className="w-min text-black px-4 py-2 rounded mt-4 hover:bg-gray-200"
-          aria-label="Toggle Menu"
+      {items.map((item) => (
+        <div
+          key={item.label}
+          className="relative"
+          onMouseEnter={() => setHoveredItem(item.label)}
         >
-          {isCollapsed ? <MenuIcon /> : <MenuOpenIcon />}
-        </button>
-      </div>
+          {renderMenuItem({
+            item,
+            isSelected: selectedItem === item.label,
+            onClick: () => handleClick(item),
+            isCollapsed,
+            level: 0,
+          })}
+          
+          {isCollapsed && hoveredItem === item.label && renderTooltip && (
+            <div className="absolute left-full top-0 ml-2">
+              {renderTooltip({
+                item,
+                selectedSubItem,
+                onSubItemClick: handleSubItemClick,
+                renderMenuItem,
+              })}
+            </div>
+          )}
 
-     
+          {!isCollapsed && item.subItems && openItem === item.label && (
+            <div className='flex flex-col gap-2 mt-2'>
+              {item.subItems.map((subItem) =>
+                renderMenuItem({
+                  item: subItem,
+                  isSelected: selectedSubItem === subItem.label,
+                  onClick: () => handleSubItemClick(subItem),
+                  isCollapsed,
+                  level: 1,
+                })
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+
+      <div>
+        {renderToggleMenu({
+          isCollapsed,
+          toggleMenu,
+        })}
+      </div>
     </div>
   );
 };

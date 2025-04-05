@@ -41,4 +41,3 @@ export const menuItems: MenuItem[] = [
   { label: 'Settings', icon: SettingsIcon, path: '/settings' },
   { label: 'Knowledge Base', icon: MenuBookIcon, path: '/knowledge-base' },
 ];
-
