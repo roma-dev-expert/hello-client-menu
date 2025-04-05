@@ -45,7 +45,6 @@ const InventoryProducts: React.FC = () => {
     <div className="p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Inventory Products</h1>
 
-      {/* Поиск */}
       <input
         type="text"
         placeholder="Search by name..."
@@ -54,7 +53,6 @@ const InventoryProducts: React.FC = () => {
         className="w-full mb-4 p-2 border border-gray-300 rounded"
       />
 
-      {/* Форма добавления нового продукта */}
       <div className="mb-4">
         <input
           type="text"
@@ -92,7 +90,6 @@ const InventoryProducts: React.FC = () => {
         </button>
       </div>
 
-      {/* Список продуктов */}
       <ul className="space-y-4">
         {filteredProducts.map((product) => (
           <li

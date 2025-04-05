@@ -42,7 +42,6 @@ const InventoryOrders: React.FC = () => {
     <div className="p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Inventory Orders</h1>
 
-      {/* Фильтр */}
       <div className="mb-4">
         <select
           value={filterStatus}

@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MenuItem, HeadlessMenuProps } from '../types/menu';
-import '../styles/globals.css';
+import { useMenu } from '../context/MenuContext';
 
 export const HeadlessMenu: React.FC<HeadlessMenuProps> = ({
   items,
   renderMenuItem,
+  renderSubMenuItem,
   renderToggleMenu,
   renderTooltip,
-  className,
+  renderMobileSubmenu,
+  className
 }) => {
-  const [openItem, setOpenItem] = useState<string | null>(null);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  const [selectedSubItem, setSelectedSubItem] = useState<string | null>(null);
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const {
+    isCollapsed,
+    toggleCollapse,
+    selectedItem,
+    setSelectedItem,
+    selectedSubItem,
+    setSelectedSubItem,
+    isMobile,
+    hoveredItem,
+    setHoveredItem,
+  } = useMenu();
 
-  const handleClick = (item: MenuItem) => {
-    setOpenItem(openItem === item.label ? null : item.label);
+  const handleItemClick = (item: MenuItem) => {
     setSelectedItem(item.label);
     if (item.subItems && item.subItems.length > 0) {
       setSelectedSubItem(item.subItems[0].label);
@@ -25,66 +32,65 @@ export const HeadlessMenu: React.FC<HeadlessMenuProps> = ({
     }
   };
 
-  const handleSubItemClick = (subItem: MenuItem) => {
+  const handleSubItemClick = (item: MenuItem, subItem: MenuItem) => {
+    setSelectedItem(item.label);
     setSelectedSubItem(subItem.label);
   };
 
-  const toggleMenu = () => {
-    setIsCollapsed((prev) => !prev);
-  };
-
   return (
-    <div
+    <div 
       className={className}
-      onMouseLeave={() => setHoveredItem(null)}
+      onMouseLeave={!isMobile ? () => setHoveredItem(null) : undefined}
     >
       {items.map((item) => (
-        <div
+        <div className='relative'
           key={item.label}
-          className="relative"
-          onMouseEnter={() => setHoveredItem(item.label)}
+          {...(!isMobile && { onMouseEnter: () => setHoveredItem(item.label) })}
         >
           {renderMenuItem({
             item,
             isSelected: selectedItem === item.label,
-            onClick: () => handleClick(item),
+            onClick: () => handleItemClick(item),
             isCollapsed,
             level: 0,
+            isMobile,
           })}
-          
-          {isCollapsed && hoveredItem === item.label && renderTooltip && (
-            <div className="absolute left-full top-0 ml-2">
-              {renderTooltip({
-                item,
-                selectedSubItem,
-                onSubItemClick: handleSubItemClick,
-                renderMenuItem,
-              })}
-            </div>
+
+          {!isMobile && isCollapsed && hoveredItem === item.label && (
+            renderTooltip?.({
+              item,
+              selectedSubItem,
+              onSubItemClick: handleSubItemClick
+            })
           )}
 
-          {!isCollapsed && item.subItems && openItem === item.label && (
-            <div className='flex flex-col gap-2 mt-2'>
-              {item.subItems.map((subItem) =>
-                renderMenuItem({
-                  item: subItem,
-                  isSelected: selectedSubItem === subItem.label,
-                  onClick: () => handleSubItemClick(subItem),
-                  isCollapsed,
-                  level: 1,
-                })
-              )}
-            </div>
+          {!isMobile && !isCollapsed && item.subItems && selectedItem === item.label && (
+            renderSubMenuItem?.({
+              item,
+              selectedSubItem,
+              onSubItemClick: handleSubItemClick,
+              isCollapsed,
+              level: 0,
+              isMobile,
+            })
+          )}
+
+          {isMobile && item.subItems && selectedItem === item.label && (
+            renderMobileSubmenu?.({
+              item,
+              selectedSubItem,
+              subItems: item.subItems,
+              onClose: () => setSelectedItem(null),
+              onSubItemClick: handleSubItemClick
+            })
           )}
         </div>
       ))}
 
-      <div>
-        {renderToggleMenu({
-          isCollapsed,
-          toggleMenu,
-        })}
-      </div>
+      {!isMobile && renderToggleMenu?.({
+        isCollapsed,
+        toggleMenu: toggleCollapse
+      })}
     </div>
   );
 };
